@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+1. Redux 就是用来管理react components 的
+2. 需要进行的操作有
+    1. store：
+        创建store。利用的redux 的createStore（Reducer，initialState，middleware）
+        这里Reducer 往往传入的是一个rootReducer， 在定义rootReducer的模块中（./reducer/index.js) 中，我们需要利用redux 提供的 combineReducers（{
+            ReducerName:Reducer
+        }）来连接各子Reducer
+    2. action：
+        （1）定义action。 action是一个 object，里面必须要type 属性，也可以传入data 并发送到Reducer中。 
+        （2）dispach ：定义后需要分发action 给Reducer。 在这里一般情况我们都是会用到中间件，中间件在处理异步分发的时候会创建一个函数，这个函数返回一个需要传入dispatch 作为参数的函数，然后再在这个返回的函数体中利用dispatch 进行分发操作（可参见./actions/postAction 中的写法）
+        （3）action 需要在 React Components 中触发来开始一切操作。所以这个用户的接口最先出发的就是action
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+    3. Reducer ：
+        这里Reducer 需要用一个函数来处理，需要传入（state = initialState，action）两个值
+        这里是用来根据action.type 来进行不同的处理操作，并且返回一个新的state。
+        所以有关state 的操作。几乎都是在Reducer中完成的。 所以在这里可以根据项目的需要，来定义initialState 的结构
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    4.  在React Components 中获得信息
+        （1）处理完后就需要在React Components 中获得 触发action 的接口以及获取新的state的接口。这里我们需要用mapStateToProps()，mapDispatchToProps() 将 state 或者action 触发接口转化为props ，并且可以通过this.props.xxx  来调用
+        （2）在这里还需要用 prop-types 包中的 PropTypes 对新出现的参数（action dispatch or state） 进行一个定义
+    
