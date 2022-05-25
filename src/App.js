@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import './App.css'
+import Posts from './components/Posts'
+import { Component } from 'react'
+//react and reducer
+import { Provider } from 'react-redux'
+//import the redux store
+import { store } from './store'
+import PostForm from './components/PostForm'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <div className="App">
+          <header>
+            <img src={logo} className="App-logo" alt="logo" />
+          </header>
+          <PostForm />
+          <Posts />
+        </div>
+      </Provider>
+    )
+  }
 }
 
-export default App;
+export default App

@@ -1,9 +1,10 @@
 .App {
-  text-align: center;
+  width: 90%;
+  margin: auto;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 30px;
   pointer-events: none;
 }
 
